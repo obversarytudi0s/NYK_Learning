@@ -1,0 +1,4 @@
+setuptools>=68
+wheel
+nba-api==1.11.4
+polars>=1,<2

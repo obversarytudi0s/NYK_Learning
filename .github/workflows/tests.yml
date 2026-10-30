@@ -1,0 +1,25 @@
+name: Knicks pipeline checks
+on:
+  push:
+    branches: [main, feature/knicks-pipeline-foundation]
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  fixture:
+    runs-on: ubuntu-latest
+    container: python:3.11-slim-bookworm
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - name: Install package and Parquet support
+        run: python -m pip install -e ".[columnar]"
+      - name: Test offline contracts
+        run: python -m unittest discover -s tests -v
+      - name: Exercise fixture through CLI
+        run: |
+          knicks ingest --input fixtures/league-demo.json --synthetic --season 2024-25 --root data/demo
+          knicks build --root data/demo --expected config/expected-demo.csv --parquet
+          python scripts/stage_release.py data/demo build/demo
