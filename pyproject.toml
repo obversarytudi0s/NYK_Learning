@@ -1,0 +1,21 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "knicks-history"
+version = "0.1.0"
+description = "Replayable Knicks team-game ETL with explicit historical coverage"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+live = ["nba-api==1.11.4"]
+columnar = ["polars>=1,<2"]
+notebook = ["jupyterlab>=4,<5", "ipykernel>=6,<8"]
+
+[project.scripts]
+knicks = "knicks_history.cli:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
