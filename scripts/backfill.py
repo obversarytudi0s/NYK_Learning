@@ -27,11 +27,15 @@ for year in range(args.start, args.end + 1):
     if (season, args.season_type) in accepted and not args.refresh:
         print('Already archived:', season, args.season_type, flush=True)
         continue
+    print('Starting:', season, args.season_type, flush=True)
     result = subprocess.run([sys.executable, '-m', 'knicks_history.cli', 'fetch',
                              '--season', season, '--season-type', args.season_type,
                              '--root', str(args.root)])
     if result.returncode:
         failures.append(season)
+        print('Failed:', season, args.season_type, flush=True)
+    else:
+        accepted.add((season, args.season_type))
     time.sleep(5)  # Conservative pacing, not an official API quota guarantee.
 if failures:
     print('Unresolved seasons:', ', '.join(failures), file=sys.stderr)

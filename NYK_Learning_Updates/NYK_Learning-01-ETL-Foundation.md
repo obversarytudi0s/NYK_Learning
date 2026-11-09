@@ -15,9 +15,8 @@ This is a session record, not a script to rerun from top to bottom. Commands bel
 
 | Component | Value |
 |---|---|
-| Repository | [obversarytudi0s/NYK_Learning](https://github.com/obversarytudi0s/NYK_Learning) |
-| Local checkout | `~/Projects/DataScience/knicks_performance_hub/NYK_Learning` |
-| Absolute path | `/var/home/obversarystudios/Projects/DataScience/knicks_performance_hub/NYK_Learning` |
+| Repository | NYK_Learning (organization-hosted GitHub repository) |
+| Local checkout | Clone the repository to any preferred directory |
 | Python environment | `.venv-knicks` |
 | Observed Python version | `3.12.3`, recorded in the live release manifest |
 | Python distribution / import | `knicks-history` / `knicks_history` |
@@ -30,7 +29,7 @@ The public repository is the project home. No GitHub Pages deployment was requir
 
 ## 2. Code added to the repository
 
-The starter was introduced on `feature/knicks-pipeline-foundation` in commit [`fd9448f`](https://github.com/obversarytudi0s/NYK_Learning/commit/fd9448fb7267238b61c0da38e437390c06121355).
+The starter was introduced on `feature/knicks-pipeline-foundation` in commit `fd9448f`.
 
 | File | Responsibility |
 |---|---|
@@ -68,7 +67,7 @@ The key reliability choice is rebuilding from selected snapshots rather than app
 The setup commands supplied were:
 
 ```bash
-cd ~/Projects/DataScience/knicks_performance_hub/NYK_Learning
+cd /path/to/NYK_Learning
 python3 -m venv .venv-knicks
 source .venv-knicks/bin/activate
 python -m pip install --upgrade pip
@@ -245,7 +244,7 @@ The exception came from `build()`: no accepted run manifests were found under th
 Diagnostics supplied:
 
 ```bash
-cd ~/Projects/DataScience/knicks_performance_hub/NYK_Learning
+cd /path/to/NYK_Learning
 pwd
 ls data/live
 ls data/live/runs
@@ -319,7 +318,7 @@ The guidance was to return to the feature branch, preserve the directories, and 
 
 ## 11. Merge and synchronize local main
 
-The implementation and validation rule were integrated through [pull request #1](https://github.com/obversarytudi0s/NYK_Learning/pull/1).
+The implementation and validation rule were integrated through pull request #1.
 
 The user then ran:
 
