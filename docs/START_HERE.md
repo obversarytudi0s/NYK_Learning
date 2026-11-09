@@ -1,17 +1,15 @@
 # NYK_Learning — local setup and first successful run
 
-Repository: https://github.com/obversarytudi0s/NYK_Learning
+Repository: this checkout (clone it from your organization's repository page).
 
-Local checkout: `~/Projects/DataScience/knics_perfomance_hub/NYK_Learning`.
-
-Keep this spelling as it exists on your machine. The Python distribution is `knicks-history`, the import is `knicks_history`, and the CLI is `knicks`; these need not match the repository name.
+The Python distribution is `knicks-history`, the import is `knicks_history`, and the CLI is `knicks`; these names need not match the repository name.
 
 ## 1. Bring the starter into your existing checkout
 
 On your host:
 
 ```bash
-cd ~/Projects/DataScience/knics_perfomance_hub/NYK_Learning
+cd /path/to/NYK_Learning
 pwd
 git status --short --branch
 git remote -v
@@ -48,7 +46,7 @@ Inside that Debian container only:
 ```bash
 sudo apt update
 sudo apt install -y python3 python3-venv python3-pip git sqlite3 ca-certificates
-cd ~/Projects/DataScience/knics_perfomance_hub/NYK_Learning
+cd /path/to/NYK_Learning
 python3 --version
 ```
 
@@ -122,7 +120,7 @@ Make a feature branch per milestone, inspect `git diff`, stage intended files, c
 
 ## 9. Public repository versus GitHub Pages
 
-The repository's GitHub URL is already public. Your `~/Projects/...` path is the local working copy, not a web address. GitHub Pages is a separate hosting setting and is not enabled by this change.
+The repository is hosted on GitHub. GitHub Pages is a separate hosting setting and must be enabled independently if a website is desired.
 
 First establish a tested public repository. Later, deploy the reviewed static dataset index if desired; synthetic scores must stay clearly labeled and private archives must stay out of public exports.
 

@@ -8,16 +8,18 @@ from .pipeline import KINDS, archive, build, check_season
 
 def fetch_raw(season, kind):
     from nba_api.stats.endpoints.leaguegamelog import LeagueGameLog
-    from requests.exceptions import ConnectionError, Timeout
+    from requests.exceptions import ConnectionError, ReadTimeout, Timeout
     for attempt in range(3):
         try:
             endpoint = LeagueGameLog(season=season, season_type_all_star=kind,
                                      player_or_team_abbreviation='T', league_id='00', timeout=30)
             return endpoint.get_json().encode('utf-8')
-        except (Timeout, ConnectionError):
+        except (Timeout, ConnectionError, ReadTimeout) as exc:
             if attempt == 2:
                 raise
-            time.sleep(5 * (2 ** attempt))
+            delay = 5 * (2 ** attempt)
+            print(f'{season} {kind}: request failed ({type(exc).__name__}); retrying in {delay}s', flush=True)
+            time.sleep(delay)
     raise RuntimeError('No response')
 
 
@@ -42,6 +44,7 @@ def main():
         print(build(args.root, args.expected, args.parquet))
         return
     if args.command == 'fetch':
+        print(f'Fetching {args.season} {args.season_type} from NBA Stats...', flush=True)
         raw = fetch_raw(args.season, args.season_type)
         source = {'endpoint': 'LeagueGameLog', 'nba_api_version': importlib.metadata.version('nba_api'),
                   'LeagueID': '00', 'PlayerOrTeam': 'T', 'Season': args.season, 'SeasonType': args.season_type}
@@ -49,6 +52,7 @@ def main():
     else:
         raw, source, synthetic = args.input.read_bytes(), {'input': str(args.input)}, args.synthetic
     result = archive(args.root, raw, args.season, args.season_type, synthetic, source, args.allow_empty)
+    print(f"Archived {result['season']} {result['season_type']}: {result['row_count']} Knicks games", flush=True)
     print(json.dumps(result, indent=2))
 
 
